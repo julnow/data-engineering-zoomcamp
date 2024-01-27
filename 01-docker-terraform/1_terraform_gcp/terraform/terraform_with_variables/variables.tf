@@ -1,6 +1,6 @@
 variable "credentials" {
   description = "My Credentials"
-  default     = "<Path to your Service Account json file>"
+  default     = "./creds/creds.json"
   #ex: if you have a directory where this file is called keys with your service account json file
   #saved there as my-creds.json you could use default = "./keys/my-creds.json"
 }
@@ -8,31 +8,31 @@ variable "credentials" {
 
 variable "project" {
   description = "Project"
-  default     = "<Your Project ID>"
+  default     = "earnest-topic-412511"
 }
 
 variable "region" {
   description = "Region"
   #Update the below to your desired region
-  default     = "us-central1"
+  default = "europe-central2"
 }
 
 variable "location" {
   description = "Project Location"
   #Update the below to your desired location
-  default     = "US"
+  default = "europe-central2"
 }
 
 variable "bq_dataset_name" {
-  description = "My BigQuery Dataset Name"
+  description = "Terraform demo dataset"
   #Update the below to what you want your dataset to be called
-  default     = "demo_dataset"
+  default = "terraform_demo_dataset"
 }
 
 variable "gcs_bucket_name" {
-  description = "My Storage Bucket Name"
+  description = "Terraform bucker run 1 demo"
   #Update the below to a unique bucket name
-  default     = "terraform-demo-terra-bucket"
+  default = "terraform-demo-terra-bucket-run1"
 }
 
 variable "gcs_storage_class" {
