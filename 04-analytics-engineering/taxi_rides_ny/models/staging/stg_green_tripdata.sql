@@ -9,7 +9,7 @@ with tripdata as
 )
 select
     -- identifiers
-    {{ dbt_utils.surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
+    {{ dbt_utils.generate_surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
     cast(vendorid as integer) as vendorid,
     cast(ratecodeid as integer) as ratecodeid,
     cast(pulocationid as integer) as  pickup_locationid,
@@ -34,14 +34,13 @@ select
     cast(ehail_fee as numeric) as ehail_fee,
     cast(improvement_surcharge as numeric) as improvement_surcharge,
     cast(total_amount as numeric) as total_amount,
-    cast(payment_type as integer) as payment_type,
-    {{ get_payment_type_description('payment_type') }} as payment_type_description, 
-    cast(congestion_surcharge as numeric) as congestion_surcharge
+    coalesce(cast(payment_type as integer),0) as payment_type,
+    {{ get_payment_type_description('payment_type') }} as payment_type_description
 from tripdata
 where rn = 1
 
 
--- dbt build --m <model.sql> --var 'is_test_run: false'
+-- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
 {% if var('is_test_run', default=true) %}
 
   limit 100
